@@ -346,7 +346,7 @@ if (dir === 'UP' && !goingDown)     { dx = 0;  dy = -1; changingDirection = true
 if (dir === 'RIGHT' && !goingLeft)  { dx = 1;  dy = 0;  changingDirection = true; }
 if (dir === 'DOWN' && !goingUp)     { dx = 0;  dy = 1;  changingDirection = true; }
 }
-// Ouvinte do Teclado corrigido (Setas e WASD)
+// Ouvinte do Teclado Corrigido com as Teclas
 document.addEventListener("keydown", event => {
 const key = event.keyCode;
 if (key === 27) { // ESC
@@ -387,4 +387,3 @@ menuScreen.classList.remove("hidden");
 clearCanvas();
 }
 clearCanvas();
-
