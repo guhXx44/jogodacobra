@@ -43,7 +43,7 @@ canvas {
     background: rgba(255, 0, 0, 0.3);
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.1s ease-out;
+    transition: opacity 0.05s ease-out;
     z-index: 5;
 }
 
@@ -76,16 +76,16 @@ canvas {
 }
 
 .shoot-animation {
-    animation: kickback 0.15s ease-out;
+    animation: kickback 0.1s ease-out;
 }
 
 @keyframes kickback {
     0% { transform: translateX(-50%) translateY(0) scale(1); filter: brightness(2); }
-    50% { transform: translateX(-50%) translateY(30px) scale(1.1); filter: brightness(3); }
+    50% { transform: translateX(-50%) translateY(25px) scale(1.08); filter: brightness(2.5); }
     100% { transform: translateX(-50%) translateY(0) scale(1); filter: brightness(1); }
 }
 
-/* HUD Inferior Estilo Clássico */
+/* HUD Inferior Estilo Doom */
 .hud-panel {
     display: flex;
     justify-content: space-around;
@@ -112,12 +112,16 @@ canvas {
 
 .hud-value.low {
     color: #ff0000;
-    animation: blink 0.5s infinite alternate;
+    animation: blink 0.4s infinite alternate;
+}
+
+.hud-value.blue {
+    color: #00e5ff;
 }
 
 @keyframes blink {
     from { opacity: 1; }
-    to { opacity: 0.4; }
+    to { opacity: 0.3; }
 }
 
 .controls-hint {
