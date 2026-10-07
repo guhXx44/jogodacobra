@@ -33,7 +33,21 @@ canvas {
     display: block;
 }
 
-/* Mira clássica no centro da tela */
+/* Indicador de Dano na Tela */
+.damage-flash {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 0, 0, 0.3);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.1s ease-out;
+    z-index: 5;
+}
+
+/* Mira clássica */
 .crosshair {
     position: absolute;
     top: 50%;
@@ -43,9 +57,10 @@ canvas {
     font-size: 24px;
     font-weight: bold;
     pointer-events: none;
+    z-index: 4;
 }
 
-/* Sprite da Arma centralizado no estilo Doom */
+/* Sprite da Arma */
 #weapon {
     position: absolute;
     bottom: 0;
@@ -53,15 +68,13 @@ canvas {
     transform: translateX(-50%);
     width: 160px;
     height: 160px;
-    background-color: #555;
-    /* Criando o formato da arma direto em CSS puro para não precisar de imagens externas */
     clip-path: polygon(40% 100%, 45% 20%, 55% 20%, 60% 100%);
     background: linear-gradient(to top, #222, #444 60%, #111 65%, #666 70%, #333 100%);
     box-shadow: inset 0 0 10px #000;
     pointer-events: none;
+    z-index: 6;
 }
 
-/* Animação de Recuo ao Atirar */
 .shoot-animation {
     animation: kickback 0.15s ease-out;
 }
@@ -72,9 +85,44 @@ canvas {
     100% { transform: translateX(-50%) translateY(0) scale(1); filter: brightness(1); }
 }
 
+/* HUD Inferior Estilo Clássico */
+.hud-panel {
+    display: flex;
+    justify-content: space-around;
+    background: #151515;
+    border-top: 4px solid #333;
+    padding: 10px 0;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.hud-stat {
+    text-align: center;
+}
+
+.hud-label {
+    font-size: 0.75rem;
+    color: #666;
+    margin-bottom: 2px;
+}
+
+.hud-value {
+    color: #00ff00;
+}
+
+.hud-value.low {
+    color: #ff0000;
+    animation: blink 0.5s infinite alternate;
+}
+
+@keyframes blink {
+    from { opacity: 1; }
+    to { opacity: 0.4; }
+}
+
 .controls-hint {
     margin-top: 10px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #888;
     text-align: center;
 }
