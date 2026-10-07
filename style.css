@@ -1,7 +1,7 @@
 body {
-    background-color: #080810;
-    color: #fff;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #050505;
+    color: #ff3333;
+    font-family: 'Courier New', Courier, monospace;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,69 +14,67 @@ body {
 
 .game-container {
     position: relative;
-    background: #111122;
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0 0 30px rgba(0, 162, 255, 0.3);
-    text-align: center;
+    background: #111;
+    padding: 10px;
+    border: 4px dashed #ff0000;
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
+    border-radius: 4px;
 }
 
-.hud {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 500px;
-    margin-bottom: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 8px 15px;
-    border-radius: 6px;
-    box-sizing: border-box;
-}
-
-.stat {
-    font-size: 1rem;
-    font-weight: bold;
-}
-
-#score { color: #00e5ff; }
-#upgrade { color: #ffeb3b; }
-
-.hp-bar-container {
-    width: 120px;
-    height: 14px;
-    background: #333;
-    border-radius: 7px;
+.screen-wrapper {
+    position: relative;
+    width: 640px;
+    height: 400px;
     overflow: hidden;
-    border: 1px solid #555;
-}
-
-#hp-bar {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, #ff3366, #ff0044);
-    transition: width 0.1s;
 }
 
 canvas {
-    background: #020208;
-    border: 2px solid #00e5ff;
-    border-radius: 6px;
+    background: #000;
     display: block;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+}
+
+/* Mira clássica no centro da tela */
+.crosshair {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(0, 255, 0, 0.7);
+    font-size: 24px;
+    font-weight: bold;
+    pointer-events: none;
+}
+
+/* Sprite da Arma centralizado no estilo Doom */
+#weapon {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 160px;
+    height: 160px;
+    background-color: #555;
+    /* Criando o formato da arma direto em CSS puro para não precisar de imagens externas */
+    clip-path: polygon(40% 100%, 45% 20%, 55% 20%, 60% 100%);
+    background: linear-gradient(to top, #222, #444 60%, #111 65%, #666 70%, #333 100%);
+    box-shadow: inset 0 0 10px #000;
+    pointer-events: none;
+}
+
+/* Animação de Recuo ao Atirar */
+.shoot-animation {
+    animation: kickback 0.15s ease-out;
+}
+
+@keyframes kickback {
+    0% { transform: translateX(-50%) translateY(0) scale(1); filter: brightness(2); }
+    50% { transform: translateX(-50%) translateY(30px) scale(1.1); filter: brightness(3); }
+    100% { transform: translateX(-50%) translateY(0) scale(1); filter: brightness(1); }
 }
 
 .controls-hint {
     margin-top: 10px;
-    font-size: 0.85rem;
-    color: #aab;
-    line-height: 1.4;
-}
-
-.powerup-legend {
-    color: #ffeb3b;
-    font-weight: bold;
-}
-.shield-legend {
-    color: #00ff88;
-    font-weight: bold;
+    font-size: 0.9rem;
+    color: #888;
+    text-align: center;
 }
