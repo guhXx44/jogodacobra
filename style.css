@@ -68,5 +68,15 @@ canvas {
 .controls-hint {
     margin-top: 10px;
     font-size: 0.85rem;
-    color: #778;
+    color: #aab;
+    line-height: 1.4;
+}
+
+.powerup-legend {
+    color: #ffeb3b;
+    font-weight: bold;
+}
+.shield-legend {
+    color: #00ff88;
+    font-weight: bold;
 }
