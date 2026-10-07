@@ -3,28 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retro Space Shooter</title>
-    <!-- Vincula o arquivo de estilos CSS -->
+    <title>JS Doom Raycaster 3D</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="game-container">
-        <div class="hud">
-            <div class="stat">PONTOS: <span id="score">0</span></div>
-            <div class="stat" id="upgrade">ARMA: NÍVEL 1</div>
-            <div style="display: flex; align-items: center; gap: 8px;">
-                <div class="stat">ESCUDO:</div>
-                <div class="hp-bar-container"><div id="hp-bar"></div></div>
-            </div>
+        <!-- Tela de Renderização 3D -->
+        <div class="screen-wrapper">
+            <canvas id="gameCanvas" width="640" height="400"></canvas>
+            
+            <!-- Interface da Arma Clássica (Doom Style) -->
+            <div id="weapon"></div>
+            
+            <!-- Mira Central -->
+            <div class="crosshair">+</div>
         </div>
 
-        <canvas id="gameCanvas" width="500" height="600"></canvas>
-
-        <div class="controls-hint">Use as **Setas** (◄ ► ▲ ▼) ou **W / A / S / D** para mover. O tiro é **Automático**!</div>
+        <div class="controls-hint">
+            <strong>Controles:</strong> Use <strong>W, A, S, D</strong> ou as <strong>Setas</strong> para andar/girar. 
+            Clique com o <strong>Mouse na tela</strong> para Atirar!
+        </div>
     </div>
 
-    <!-- Vincula a lógica do jogo em JavaScript -->
     <script src="script.js"></script>
 </body>
 </html>
