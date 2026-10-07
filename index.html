@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -75,13 +74,10 @@
             align-items: center;
             justify-content: center;
             z-index: 10;
-            transition: all 0.3s;
         }
 
         .hidden {
             display: none !important;
-            opacity: 0;
-            pointer-events: none;
         }
 
         button {
@@ -120,6 +116,7 @@
             font-size: 1rem;
             border-radius: 8px;
             margin-top: 10px;
+            margin-bottom: 15px;
             cursor: pointer;
             outline: none;
         }
@@ -173,7 +170,7 @@
             <!-- Tela de Menu Inicial -->
             <div id="menuScreen" class="overlay">
                 <h2 style="color: #00ff88; margin-bottom: 5px;">Menu Principal</h2>
-                <p style="color: #aaa; margin-bottom: 20px;">Escolha a velocidade da cobra:</p>
+                <p style="color: #aaa; margin-bottom: 5px;">Escolha a velocidade:</p>
                 <select id="difficultySelect">
                     <option value="5">🥛 Fácil (Tranquilo)</option>
                     <option value="9" selected>🌶️ Médio (Padrão)</option>
@@ -252,6 +249,7 @@
         function startGame() {
             menuScreen.classList.add("hidden");
             gameOverScreen.classList.add("hidden");
+            pauseScreen.classList.add("hidden");
             initVariables();
             generateFood();
             gameLoop();
@@ -303,7 +301,7 @@
 ctx.arc((part.x * gridSize) + gridSize/2, (part.y * gridSize) + gridSize/2, gridSize/2 - 1, 0, 2 * Math.PI);
 ctx.fill();
 });
-ctx.shadowBlur = 0; // Reseta o efeito neon para o resto das artes
+ctx.shadowBlur = 0; // Reseta o efeito neon
 }
 function moveSnake() {
 const head = { x: snake[0].x + dx, y: snake[0].y + dy };
@@ -322,7 +320,6 @@ snake.pop();
 }
 }
 function drawFood() {
-// Desenha uma frutinha redonda brilhante
 ctx.fillStyle = "#ff3366";
 ctx.shadowBlur = 12;
 ctx.shadowColor = "#ff3366";
@@ -334,12 +331,10 @@ ctx.shadowBlur = 0;
 function generateFood() {
 food.x = Math.floor(Math.random() * tileCount);
 food.y = Math.floor(Math.random() * tileCount);
-// Evita comida nascer na cobra
 snake.forEach(part => {
 if (part.x === food.x && part.y === food.y) generateFood();
 });
 }
-// Sistema de Direção Integrado (Teclado e Touch)
 function handleDirection(dir) {
 if (changingDirection || isPaused) return;
 const goingUp = dy === -1;
@@ -351,21 +346,21 @@ if (dir === 'UP' && !goingDown)     { dx = 0;  dy = -1; changingDirection = true
 if (dir === 'RIGHT' && !goingLeft)  { dx = 1;  dy = 0;  changingDirection = true; }
 if (dir === 'DOWN' && !goingUp)     { dx = 0;  dy = 1;  changingDirection = true; }
 }
-// Ouvinte do Teclado (Suporta Setas e WASD)
+// Ouvinte do Teclado corrigido (Setas e WASD)
 document.addEventListener("keydown", event => {
 const key = event.keyCode;
-if (key === 27) { // ESC para pausar
+if (key === 27) { // ESC
 togglePause();
 return;
 }
-if ([37, 65].includes(key)) handleDirection('LEFT');
-if ([38, 87].includes(key)) handleDirection('UP');
-if ([39, 68].includes(key)) handleDirection('RIGHT');
-if ([40, 83].includes(key)) handleDirection('DOWN');
+if ([37, 65].includes(key)) handleDirection('LEFT');  // Seta Esquerda ou A
+if ([38, 87].includes(key)) handleDirection('UP');    // Seta Cima ou W
+if ([39, 68].includes(key)) handleDirection('RIGHT'); // Seta Direita ou D
+if ([40, 83].includes(key)) handleDirection('DOWN');  // Seta Baixo ou S
 });
 function togglePause() {
 if (menuScreen.classList.contains("hidden") && !gameOverScreen.classList.contains("hidden")) return;
-if (menuScreen.classList.contains("hidden") === false) return; // Não pausa no menu
+if (!menuScreen.classList.contains("hidden")) return;
 isPaused = !isPaused;
 if (isPaused) {
 clearTimeout(gameInterval);
@@ -376,11 +371,9 @@ gameLoop();
 }
 }
 function hasGameEnded() {
-// Colisão com o próprio corpo
 for (let i = 4; i < snake.length; i++) {
 if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true;
 }
-// Colisão com as bordas
 return snake[0].x < 0 || snake[0].x >= tileCount || snake[0].y < 0 || snake[0].y >= tileCount;
 }
 function handleGameOver() {
@@ -393,5 +386,5 @@ gameOverScreen.classList.add("hidden");
 menuScreen.classList.remove("hidden");
 clearCanvas();
 }
-// Desenha a tela preta inicial em background
 clearCanvas();
+
